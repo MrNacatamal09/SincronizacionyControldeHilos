@@ -1,11 +1,11 @@
 package ni.edu.uam.practicahilos.sincronizacionhilos;
 
 public class Carrera {
-    static int contador = 0;
     public static void main(String[] args) throws InterruptedException {
+        ContadorSeguro contador = new ContadorSeguro();
         Runnable trabajo = () -> {
             for (int i = 0; i < 100_000; i++) {
-                contador++;
+                contador.incrementar();
             }
         };
 
@@ -15,6 +15,6 @@ public class Carrera {
         b.start();
         a.join();
         b.join();
-        System.out.println("Total: " + contador);
+        System.out.println("Total: " + contador.obtener());
     }
 }
